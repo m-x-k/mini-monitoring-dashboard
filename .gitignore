@@ -1,0 +1,6 @@
+*.pyc
+**/build/
+.eggs
+
+.idea
+**/.idea

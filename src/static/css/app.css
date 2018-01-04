@@ -1,0 +1,39 @@
+body{
+  font-size: 2em;
+  color: white;
+  margin: 5%;
+  font-family: "Times New Roman", Georgia, Serif;
+  background-color: #1B1C22;
+}
+.service {
+  background-color: #2C2F36;
+  padding-top: 0.5%;
+  padding-bottom: 3%;
+  border-radius: 2%;
+  border-color: grey;
+  border-style: solid;
+  color: #F49909;
+  text-align: center;
+}
+.canvas {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(30%, 1fr));
+  grid-gap: 20px;
+
+  // background-color: #22242B;
+  padding: 0%;
+}
+.measurement {
+  display: grid;
+  color: white;
+  padding-bottom: 10%;
+  grid-template-columns: repeat(auto-fit, minmax(50%, 1fr));
+  grid-auto-flow: column;
+}
+.measureName {
+  color: #F0AD4B;
+}
+.measureValue {
+  font-style: italic;
+}

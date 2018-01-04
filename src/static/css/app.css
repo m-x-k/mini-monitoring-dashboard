@@ -5,6 +5,19 @@ body{
   font-family: "Times New Roman", Georgia, Serif;
   background-color: #1B1C22;
 }
+
+@media screen and (min-width: 300px) {
+    body{font-size: 100%;}
+}
+
+@media screen and (min-width: 500px) {
+    body{font-size: 150%;}
+}
+
+@media screen and (min-width: 700px) {
+    body{font-size: 200%;}
+}
+
 .service {
   background-color: #2C2F36;
   padding-top: 0.5%;
@@ -13,7 +26,7 @@ body{
   border-color: grey;
   border-style: solid;
   color: #F49909;
-  text-align: center;
+  padding-left: 10%;
 }
 .canvas {
   width: 100%;
@@ -21,8 +34,7 @@ body{
   grid-template-columns: repeat(auto-fit, minmax(30%, 1fr));
   grid-gap: 20px;
 
-  // background-color: #22242B;
-  padding: 0%;
+  padding: 0;
 }
 .measurement {
   display: grid;
@@ -36,4 +48,12 @@ body{
 }
 .measureValue {
   font-style: italic;
+  text-align: right;
+  padding-right: 10%;
+}
+.trend {
+  color: white;
+  font-size: 120%;
+  text-align: right;
+  padding-right: 5%;
 }

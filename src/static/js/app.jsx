@@ -1,3 +1,42 @@
+class SymbolTrend extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+    render() {
+        var symbol = "fa " + this.props.symbol;
+        return(
+            <div>
+                {this.props.value} <i className={symbol}></i>
+            </div>
+        );
+    }
+}
+class Trend extends React.Component {
+    constructor(props) {
+        super(props);
+        Object.entries(this.props.trend).map(([key, value]) =>{
+            this.state = {
+                'key': key,
+                'value': value
+            };
+        });
+    }
+    render() {
+        var symbol = "";
+        console.log(this.props);
+        if (!this.state) return null;
+        else if (this.state.key == "UP") {
+            symbol = "fa-arrow-circle-up";
+        } else if(this.state.key == "DOWN") {
+            symbol = "fa-arrow-circle-down";
+        }
+        return(
+            <div className="trend">
+                <SymbolTrend value={this.state.value} symbol={symbol} />
+            </div>
+        );
+    }
+}
 class ServiceMeasurement extends React.Component {
   constructor(props) {
     super(props);
@@ -25,10 +64,17 @@ class Service extends React.Component {
   render() {
     return(
       <div className="service">
-        <h3>{this.props.service.name}</h3>
-        {this.state.measurements.map((measurement, index) =>
-            <ServiceMeasurement key={index} measurement={measurement} />
-        )}
+        <h3>{this.state.name}</h3>
+        <div className="measurements">
+            {this.state.measurements.map((measurement, index) =>
+                <ServiceMeasurement key={index} measurement={measurement} />
+            )}
+        </div>
+        <div className="trends">
+            {this.state.trends.map((trend, index) =>
+                <Trend key={index} trend={trend} />
+            )}
+        </div>
       </div>
     );
   }
@@ -49,6 +95,7 @@ class MonitorDisplay extends React.Component {
   }
 }
 
+// TODO use axios to get this from our python app
 var services = {
   "services": [
     {
@@ -57,7 +104,8 @@ var services = {
         {"Submitted": "49"},
         {"Stuck": "4"},
         {"Completed": "45"}
-      ]
+      ],
+      "trends": []
     },
     {
       "name": "Discharges",
@@ -72,15 +120,19 @@ var services = {
     {
       "name": "Notifications",
       "measurements": [
-        {"Acknologements": "59"},
+        {"Acknowledgements": "59"},
         {"Submission confirmations": "50"}
+      ],
+      "trends": [
+        {"DOWN": "50%"}
       ]
     },
     {
       "name": "PlanGen",
       "measurements": [
         {"PrintRequests": "80"}
-      ]
+      ],
+      "trends": []
     }
   ]
 }

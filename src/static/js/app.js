@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
@@ -20,15 +20,15 @@ var SymbolTrend = function (_React$Component) {
     }
 
     _createClass(SymbolTrend, [{
-        key: 'render',
+        key: "render",
         value: function render() {
             var symbol = "fa " + this.props.symbol;
             return React.createElement(
-                'div',
-                null,
+                "div",
+                { className: "trend service-item" },
                 this.props.value,
-                ' ',
-                React.createElement('i', { className: symbol })
+                " ",
+                React.createElement("i", { className: symbol })
             );
         }
     }]);
@@ -58,20 +58,16 @@ var Trend = function (_React$Component2) {
     }
 
     _createClass(Trend, [{
-        key: 'render',
+        key: "render",
         value: function render() {
             var symbol = "";
             console.log(this.props);
             if (!this.state) return null;else if (this.state.key == "UP") {
-                symbol = "fa-arrow-circle-up";
+                symbol = "fa-arrow-circle-up trend-green";
             } else if (this.state.key == "DOWN") {
-                symbol = "fa-arrow-circle-down";
+                symbol = "fa-arrow-circle-down trend-red";
             }
-            return React.createElement(
-                'div',
-                { className: 'trend' },
-                React.createElement(SymbolTrend, { value: this.state.value, symbol: symbol })
-            );
+            return React.createElement(SymbolTrend, { key: this.state.key, value: this.state.value, symbol: symbol });
         }
     }]);
 
@@ -100,20 +96,20 @@ var ServiceMeasurement = function (_React$Component3) {
     }
 
     _createClass(ServiceMeasurement, [{
-        key: 'render',
+        key: "render",
         value: function render() {
             return React.createElement(
-                'div',
-                { className: 'measurement' },
+                "div",
+                { className: "measurement service-item" },
                 React.createElement(
-                    'div',
-                    { className: 'measureName' },
+                    "div",
+                    { className: "measureName" },
                     this.state.key,
-                    ':'
+                    ":"
                 ),
                 React.createElement(
-                    'div',
-                    { className: 'measureValue' },
+                    "div",
+                    { className: "measureValue" },
                     this.state.value
                 )
             );
@@ -137,23 +133,23 @@ var MonitorDisplay = function (_React$Component4) {
     }
 
     _createClass(MonitorDisplay, [{
-        key: 'componentDidMount',
+        key: "componentDidMount",
         value: function componentDidMount() {
             this.fetchData();
         }
     }, {
-        key: 'componentWillMount',
+        key: "componentWillMount",
         value: function componentWillMount() {
             var id = setInterval(this.fetchData, 5000);
             this.setState({ intervalId: id });
         }
     }, {
-        key: 'componentWillUnmount',
+        key: "componentWillUnmount",
         value: function componentWillUnmount() {
             clearInterval(this.state.intervalId);
         }
     }, {
-        key: 'fetchData',
+        key: "fetchData",
         value: function fetchData() {
             var _this5 = this;
 
@@ -168,7 +164,7 @@ var MonitorDisplay = function (_React$Component4) {
             this.updateDateTime();
         }
     }, {
-        key: 'updateDateTime',
+        key: "updateDateTime",
         value: function updateDateTime() {
             var today = new Date();
             var currenttime = today.toDateString() + " " + today.toTimeString();
@@ -177,54 +173,53 @@ var MonitorDisplay = function (_React$Component4) {
             });
         }
     }, {
-        key: 'render',
+        key: "render",
         value: function render() {
             if (!this.state || !this.state.services) return null;
-            console.log(this.state);
             return React.createElement(
-                'div',
-                { className: 'container' },
+                "div",
+                { className: "container" },
                 React.createElement(
-                    'h2',
+                    "h2",
                     null,
-                    'New Foundations Support Dashboard'
+                    "New Foundations Support Dashboard"
                 ),
                 React.createElement(
-                    'div',
-                    { className: 'canvas' },
+                    "div",
+                    { className: "canvas" },
                     this.state.services.map(function (service, index) {
                         return React.createElement(
-                            'div',
-                            { key: index, className: 'service' },
+                            "div",
+                            { key: service.name, className: "service" },
                             React.createElement(
-                                'h3',
-                                null,
+                                "h3",
+                                { key: service.name + ':h' },
                                 service.name
                             ),
                             React.createElement(
-                                'div',
-                                { className: 'measurements' },
-                                service.measurements.map(function (measurement, index) {
-                                    return React.createElement(ServiceMeasurement, { key: index, measurement: measurement });
+                                "div",
+                                { key: service.name + ':t', className: "trends" },
+                                service.trends.map(function (trend, index) {
+                                    return React.createElement(Trend, { key: service.name + ":t:" + index, trend: trend });
                                 })
                             ),
                             React.createElement(
-                                'div',
-                                { className: 'trends' },
-                                service.trends.map(function (trend, index) {
-                                    return React.createElement(Trend, { key: index, trend: trend });
+                                "div",
+                                { key: service.name + ':m', className: "measurements" },
+                                service.measurements.map(function (measurement, index) {
+                                    return React.createElement(ServiceMeasurement, { key: service.name + ":m:" + index, measurement: measurement });
                                 })
                             )
                         );
                     })
                 ),
                 React.createElement(
-                    'div',
-                    { className: 'updated' },
-                    'Last Updated: ',
+                    "div",
+                    { className: "lastUpdated" },
+                    "Last Updated: ",
                     React.createElement(
-                        'span',
-                        null,
+                        "span",
+                        { className: "lastUpdatedDateTime" },
                         this.state.currenttime
                     )
                 )
@@ -236,5 +231,3 @@ var MonitorDisplay = function (_React$Component4) {
 }(React.Component);
 
 ReactDOM.render(React.createElement(MonitorDisplay, null), document.getElementById('root'));
-
-//# sourceMappingURL=app.js.map

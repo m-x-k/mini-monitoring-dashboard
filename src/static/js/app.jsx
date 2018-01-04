@@ -64,6 +64,9 @@ var services = {
       "measurements": [
         {"Submitted": "10"},
         {"Completed": "10"}
+      ],
+      "trends": [
+        {"UP": "20%"}
       ]
     },
     {

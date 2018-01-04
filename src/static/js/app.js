@@ -64,7 +64,8 @@ var services = {
     "measurements": [{ "Submitted": "49" }, { "Stuck": "4" }, { "Completed": "45" }]
   }, {
     "name": "Discharges",
-    "measurements": [{ "Submitted": "10" }, { "Completed": "10" }]
+    "measurements": [{ "Submitted": "10" }, { "Completed": "10" }],
+    "trends": [{ "UP": "20%" }]
   }, {
     "name": "Notifications",
     "measurements": [{ "Acknologements": "59" }, { "Submission confirmations": "50" }]

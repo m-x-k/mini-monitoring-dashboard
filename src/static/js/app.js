@@ -123,83 +123,111 @@ var ServiceMeasurement = function (_React$Component3) {
     return ServiceMeasurement;
 }(React.Component);
 
-var Service = function (_React$Component4) {
-    _inherits(Service, _React$Component4);
-
-    function Service(props) {
-        _classCallCheck(this, Service);
-
-        var _this4 = _possibleConstructorReturn(this, (Service.__proto__ || Object.getPrototypeOf(Service)).call(this, props));
-
-        _this4.state = _this4.props.service;
-        return _this4;
-    }
-
-    _createClass(Service, [{
-        key: 'render',
-        value: function render() {
-            return React.createElement(
-                'div',
-                { className: 'service' },
-                React.createElement(
-                    'h3',
-                    null,
-                    this.state.name
-                ),
-                React.createElement(
-                    'div',
-                    { className: 'measurements' },
-                    this.state.measurements.map(function (measurement, index) {
-                        return React.createElement(ServiceMeasurement, { key: index, measurement: measurement });
-                    })
-                ),
-                React.createElement(
-                    'div',
-                    { className: 'trends' },
-                    this.state.trends.map(function (trend, index) {
-                        return React.createElement(Trend, { key: index, trend: trend });
-                    })
-                )
-            );
-        }
-    }]);
-
-    return Service;
-}(React.Component);
-
-var MonitorDisplay = function (_React$Component5) {
-    _inherits(MonitorDisplay, _React$Component5);
+var MonitorDisplay = function (_React$Component4) {
+    _inherits(MonitorDisplay, _React$Component4);
 
     function MonitorDisplay(props) {
         _classCallCheck(this, MonitorDisplay);
 
-        return _possibleConstructorReturn(this, (MonitorDisplay.__proto__ || Object.getPrototypeOf(MonitorDisplay)).call(this, props));
+        var _this4 = _possibleConstructorReturn(this, (MonitorDisplay.__proto__ || Object.getPrototypeOf(MonitorDisplay)).call(this, props));
+
+        _this4.fetchData = _this4.fetchData.bind(_this4);
+        _this4.updateDateTime = _this4.updateDateTime.bind(_this4);
+        return _this4;
     }
 
     _createClass(MonitorDisplay, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
-            var _this6 = this;
+            this.fetchData();
+        }
+    }, {
+        key: 'componentWillMount',
+        value: function componentWillMount() {
+            var id = setInterval(this.fetchData, 5000);
+            this.setState({ intervalId: id });
+        }
+    }, {
+        key: 'componentWillUnmount',
+        value: function componentWillUnmount() {
+            clearInterval(this.state.intervalId);
+        }
+    }, {
+        key: 'fetchData',
+        value: function fetchData() {
+            var _this5 = this;
 
             axios.get('/example').then(function (_ref5) {
                 var data = _ref5.data;
 
-                console.log(data);
-                _this6.setState({ services: data.services });
+                _this5.setState({ services: data.services });
             }).catch(function (error) {
                 console.log(error);
+            });
+
+            this.updateDateTime();
+        }
+    }, {
+        key: 'updateDateTime',
+        value: function updateDateTime() {
+            var today = new Date();
+            var currenttime = today.toDateString() + " " + today.toTimeString();
+            this.setState({
+                currenttime: currenttime
             });
         }
     }, {
         key: 'render',
         value: function render() {
-            if (!this.state) return null;
+            if (!this.state || !this.state.services) return null;
+            console.log(this.state);
             return React.createElement(
                 'div',
-                { className: 'canvas' },
-                this.state.services.map(function (row, index) {
-                    return React.createElement(Service, { key: index, service: row });
-                })
+                { className: 'container' },
+                React.createElement(
+                    'h2',
+                    null,
+                    'New Foundations Support Dashboard'
+                ),
+                React.createElement(
+                    'div',
+                    { className: 'canvas' },
+                    this.state.services.map(function (service, index) {
+                        return React.createElement(
+                            'div',
+                            { key: index, className: 'service' },
+                            React.createElement(
+                                'h3',
+                                null,
+                                service.name
+                            ),
+                            React.createElement(
+                                'div',
+                                { className: 'measurements' },
+                                service.measurements.map(function (measurement, index) {
+                                    return React.createElement(ServiceMeasurement, { key: index, measurement: measurement });
+                                })
+                            ),
+                            React.createElement(
+                                'div',
+                                { className: 'trends' },
+                                service.trends.map(function (trend, index) {
+                                    return React.createElement(Trend, { key: index, trend: trend });
+                                })
+                            )
+                        );
+                    })
+                ),
+                React.createElement(
+                    'div',
+                    { className: 'updated' },
+                    'Last Updated: ',
+                    React.createElement(
+                        'span',
+                        null,
+                        this.state.currenttime
+                    )
+                )
             );
         }
     }]);

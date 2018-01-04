@@ -1,8 +1,12 @@
 body{
   font-size: 2em;
   color: white;
-  margin: 5%;
+  margin: 3% 5%;
   background-color: #1B1C22;
+}
+
+h2 {
+  text-align: center;
 }
 
 @media screen and (min-width: 200px) {
@@ -59,4 +63,9 @@ body{
 .trends {
   color: white;
   padding-right: 5%;
+}
+.updated {
+  font-size: 80%;
+  text-align: right;
+  color: grey;
 }

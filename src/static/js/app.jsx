@@ -6,7 +6,7 @@ class SymbolTrend extends React.Component {
         var symbol = "fa " + this.props.symbol;
         return(
             <div>
-                {this.props.value} <i className={symbol}></i>
+                {this.props.value} <i className={symbol}/>
             </div>
         );
     }
@@ -50,8 +50,8 @@ class ServiceMeasurement extends React.Component {
   render() {
     return(
       <div className="measurement">
-          <span className="measureName">{this.state.key}:</span>
-          <span className="measureValue">{this.state.value}</span>
+          <div className="measureName">{this.state.key}:</div>
+          <div className="measureValue">{this.state.value}</div>
       </div>
     );
   }
@@ -82,9 +82,23 @@ class Service extends React.Component {
 class MonitorDisplay extends React.Component {
   constructor(props) {
     super(props);
-    this.state = this.props.services;
   }
+
+  componentDidMount(){
+    axios.get('/example')
+      .then(({data}) => {
+        console.log(data);
+        this.setState(
+            {services: data.services}
+        );
+      })
+      .catch(function (error) {
+        console.log(error);
+    });
+  }
+
   render() {
+    if (!this.state) return null;
     return(
       <div className="canvas">
         {this.state.services.map((row, index) =>
@@ -95,49 +109,7 @@ class MonitorDisplay extends React.Component {
   }
 }
 
-// TODO use axios to get this from our python app
-var services = {
-  "services": [
-    {
-      "name": "ANS",
-      "measurements": [
-        {"Submitted": "49"},
-        {"Stuck": "4"},
-        {"Completed": "45"}
-      ],
-      "trends": []
-    },
-    {
-      "name": "Discharges",
-      "measurements": [
-        {"Submitted": "10"},
-        {"Completed": "10"}
-      ],
-      "trends": [
-        {"UP": "20%"}
-      ]
-    },
-    {
-      "name": "Notifications",
-      "measurements": [
-        {"Acknowledgements": "59"},
-        {"Submission confirmations": "50"}
-      ],
-      "trends": [
-        {"DOWN": "50%"}
-      ]
-    },
-    {
-      "name": "PlanGen",
-      "measurements": [
-        {"PrintRequests": "80"}
-      ],
-      "trends": []
-    }
-  ]
-}
-
 ReactDOM.render(
-   <MonitorDisplay services={services} />,
+   <MonitorDisplay />,
    document.getElementById('root')
 );

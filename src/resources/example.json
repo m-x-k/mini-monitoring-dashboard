@@ -1,0 +1,49 @@
+{
+  "services": [
+    {
+      "name": "ANS",
+      "measurements": [
+        {"Submitted": "49"},
+        {"Stuck": "4"},
+        {"Completed": "45"}
+      ],
+      "trends": []
+    },
+    {
+      "name": "Discharges",
+      "measurements": [
+        {"Submitted": "10"},
+        {"Completed": "10"}
+      ],
+      "trends": [
+        {"UP": "20%"}
+      ]
+    },
+    {
+      "name": "Notifications",
+      "measurements": [
+        {"Acknowledgements": "59"},
+        {"Submission confirmations": "50"}
+      ],
+      "trends": [
+        {"DOWN": "50%"}
+      ]
+    },
+    {
+      "name": "PlanGen",
+      "measurements": [
+        {"PrintRequests": "80"}
+      ],
+      "trends": []
+    },
+    {
+      "name": "DMS",
+      "measurements": [
+        {"Queue": "70"}
+      ],
+      "trends": [
+        {"DOWN": "25%"}
+      ]
+    }
+  ]
+}

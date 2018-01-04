@@ -60,17 +60,17 @@ class MonitorDisplay extends React.Component {
 
 var services = {
   "services": [{
-    "name": "Service A",
-    "measurements": [{ "Hits": "100" }, { "CPU": "99%" }]
+    "name": "ANS",
+    "measurements": [{ "Submitted": "49" }, { "Stuck": "4" }, { "Completed": "45" }]
   }, {
-    "name": "Service B",
-    "measurements": [{ "Hits": "200" }, { "Disk Usage": "80%" }]
+    "name": "Discharges",
+    "measurements": [{ "Submitted": "10" }, { "Completed": "10" }]
   }, {
-    "name": "Service C",
-    "measurements": [{ "Hits": "300" }, { "CPU": "50%" }]
+    "name": "Notifications",
+    "measurements": [{ "Acknologements": "59" }, { "Submission confirmations": "50" }]
   }, {
-    "name": "Service D",
-    "measurements": [{ "Hits": "400" }]
+    "name": "PlanGen",
+    "measurements": [{ "PrintRequests": "80" }]
   }]
 };
 

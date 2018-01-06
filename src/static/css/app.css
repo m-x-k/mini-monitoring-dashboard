@@ -1,34 +1,43 @@
 body{
-  font-size: 2em;
   color: white;
   margin: 3% 5%;
   background-color: #1B1C22;
 }
 
-h2 {
+h1, h2, h3 {
   text-align: center;
 }
 
 @media screen and (min-width: 200px) {
     body{font-size: 50%;}
+    .canvas{grid-template-columns: auto;}
 }
 
 @media screen and (min-width: 300px) {
     body{font-size: 60%;}
+    .canvas{grid-template-columns: auto auto;}
 }
 
 @media screen and (min-width: 400px) {
     body{font-size: 70%;}
+    .canvas{grid-template-columns: auto auto;}
 }
 
 @media screen and (min-width: 500px) {
     body{font-size: 90%;}
+    .canvas{grid-template-columns: auto auto auto;}
 }
 
 @media screen and (min-width: 700px) {
     body{font-size: 150%;}
+    .canvas{grid-template-columns: auto auto auto;}
 }
 
+.canvas {
+  display: grid;
+  grid-gap: 20px;
+  font-size: 1.5em;
+}
 .service {
   background-color: #2C2F36;
   padding-top: 0.5%;
@@ -38,18 +47,15 @@ h2 {
   border-style: solid;
   color: #F49909;
   padding-left: 10%;
+  padding-right: 10%;
 }
-.canvas {
-  width: 100%;
+.service-item {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(20%, 1fr));
-  grid-gap: 20px;
+  grid-template-columns: auto auto;
+  grid-template-rows: 50px;
 }
 .measurement {
-  display: grid;
   color: white;
-  padding-bottom: 10%;
-  grid-template-columns: repeat(auto-fit, minmax(20%, 1fr));
   font-size: 80%;
 }
 .measureName {
@@ -61,11 +67,25 @@ h2 {
   padding-right: 10%;
 }
 .trends {
-  color: white;
-  padding-right: 5%;
+  text-align: right;
 }
-.updated {
+.trend {
+  color: white;
+  padding-right: 3%;
+}
+.trend i {
+  text-align: left;
+  padding-left: 5%;
+}
+.trend-red {
+  color: red;
+}
+.trend-green {
+  color: limegreen;
+}
+.lastUpdated {
   font-size: 80%;
   text-align: right;
   color: grey;
+  padding-top: 2%;
 }

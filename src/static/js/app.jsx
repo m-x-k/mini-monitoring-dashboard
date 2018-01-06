@@ -1,61 +1,65 @@
-class SymbolTrend extends React.Component {
-    constructor(props) {
-        super(props);
+const SymbolTrend = ({value, symbol}) => (
+    <div className="trend service-item">
+        {value} <i className={"fa " + symbol}/>
+    </div>
+)
+
+const symbol = (key) => {
+    if (key == "UP") {
+        return "fa-arrow-circle-up trend-green";
+    } else if(key == "DOWN") {
+        return "fa-arrow-circle-down trend-red";
     }
-    render() {
-        var symbol = "fa " + this.props.symbol;
-        return(
-            <div>
-                {this.props.value} <i className={symbol}/>
-            </div>
-        );
-    }
+    return "";
 }
-class Trend extends React.Component {
-    constructor(props) {
-        super(props);
-        Object.entries(this.props.trend).map(([key, value]) =>{
-            this.state = {
-                'key': key,
-                'value': value
-            };
-        });
-    }
-    render() {
-        var symbol = "";
-        console.log(this.props);
-        if (!this.state) return null;
-        else if (this.state.key == "UP") {
-            symbol = "fa-arrow-circle-up";
-        } else if(this.state.key == "DOWN") {
-            symbol = "fa-arrow-circle-down";
-        }
-        return(
-            <div className="trend">
-                <SymbolTrend value={this.state.value} symbol={symbol} />
-            </div>
-        );
-    }
-}
-class ServiceMeasurement extends React.Component {
-  constructor(props) {
-    super(props);
-    Object.entries(this.props.measurement).map(([key,value]) =>{
-      this.state = {
-        'key': key,
-        'value': value
-      };
-    });
-  }
-  render() {
-    return(
-      <div className="measurement">
-          <div className="measureName">{this.state.key}:</div>
-          <div className="measureValue">{this.state.value}</div>
+
+const Trend = ({trend}) => (
+    <div>
+        {Object.entries(trend).map(([key, value]) =>
+            <SymbolTrend key={"Trend:"+key} value={value} symbol={symbol(key)} />
+        )}
+    </div>
+)
+
+const ServiceMeasurement = ({measurement}) => (
+    <div className="measurement service-item">
+        {Object.entries(measurement).map(([key, value]) =>
+            <div key={"ServiceMeasurement:name:" + key} className="measureName">{key}:</div>
+        )}
+        {Object.entries(measurement).map(([key, value]) =>
+            <div key={"ServiceMeasurement:value:" + key} className="measureValue">{value}</div>
+        )}
+    </div>
+)
+
+const Service = ({service}) => (
+    <div className="service">
+        <h3>{service.name}</h3>
+        <div className="trends">
+            {service.trends.map((trend, index) =>
+                <Trend key={"Service:"+index} trend={trend} />
+            )}
+        </div>
+        <div className="measurements">
+            {service.measurements.map((measurement, index) =>
+                <ServiceMeasurement key={"Service:"+index} measurement={measurement} />
+            )}
+        </div>
+    </div>
+)
+
+const Dashboard = ({services, currenttime}) => (
+    <div className="container">
+      <h2>Mini Monitoring Dashboard</h2>
+      <div className="canvas">
+        {services.map((service, index) =>
+            <Service key={"MonitorDisplay:"+index} service={service} />
+        )}
       </div>
-    );
-  }
-}
+      <div className="lastUpdated">Last Updated: <span className="lastUpdatedDateTime">{currenttime}</span></div>
+    </div>
+)
+
 class MonitorDisplay extends React.Component {
   constructor(props) {
     super(props);
@@ -68,7 +72,7 @@ class MonitorDisplay extends React.Component {
   }
 
   componentWillMount() {
-      const id = setInterval(this.fetchData, 5000);
+      const id = setInterval(this.fetchData, 10000);
       this.setState({intervalId: id});
   }
 
@@ -100,30 +104,9 @@ class MonitorDisplay extends React.Component {
 
   render() {
       if (!this.state || !this.state.services) return null;
-      console.log(this.state);
       return(
-      <div className="container">
-          <h2>New Foundations Support Dashboard</h2>
-          <div className="canvas">
-            {this.state.services.map((service, index) =>
-              <div key={index} className="service">
-                <h3>{service.name}</h3>
-                <div className="measurements">
-                    {service.measurements.map((measurement, index) =>
-                        <ServiceMeasurement key={index} measurement={measurement} />
-                    )}
-                </div>
-                <div className="trends">
-                    {service.trends.map((trend, index) =>
-                        <Trend key={index} trend={trend} />
-                    )}
-                </div>
-              </div>
-            )}
-          </div>
-          <div className="updated">Last Updated: <span>{this.state.currenttime}</span></div>
-      </div>
-    );
+        <Dashboard services={this.state.services} currenttime={this.state.currenttime} />
+      );
   }
 }
 

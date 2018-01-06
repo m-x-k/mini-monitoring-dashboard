@@ -1,45 +1,43 @@
 {
   "services": [
     {
-      "name": "ANS",
+      "name": "Service 0",
       "measurements": [
-        {"Submitted": "49"},
-        {"Stuck": "4"},
-        {"Completed": "45"}
+        {"Submissions": "49"},
+        {"Completed": "4"}
       ],
       "trends": []
     },
     {
-      "name": "Discharges",
+      "name": "Service 1",
       "measurements": [
-        {"Submitted": "10"},
         {"Completed": "10"}
       ],
       "trends": [
-        {"UP": "20%"}
+        {"UP": "30%"}
       ]
     },
     {
-      "name": "Notifications",
+      "name": "Service 2",
       "measurements": [
-        {"Acknowledgements": "59"},
-        {"Submission confirmations": "50"}
+        {"Completed": "59"}
       ],
       "trends": [
         {"DOWN": "50%"}
       ]
     },
     {
-      "name": "PlanGen",
+      "name": "Service 3",
       "measurements": [
-        {"PrintRequests": "80"}
+        {"Completed": "80"}
       ],
       "trends": []
     },
     {
-      "name": "DMS",
+      "name": "Service 4",
       "measurements": [
-        {"Queue": "70"}
+        {"Random Count": "70"},
+        {"Completed": "10"}
       ],
       "trends": [
         {"DOWN": "25%"}

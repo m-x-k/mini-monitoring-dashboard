@@ -1,13 +1,17 @@
-# nf-support-dashboard
+# Mini Monitoring Dashboard
 
 See [APP README](src/README.md) for more instructions on development setup.
 
-## Rebuilding app.jsx
+## Docker
 
-A small shell script has been provided to quickly rebuild/transpile the `app.jsx` file:
+### Build
 
 ```sh
-./rebuildJS.sh
+docker build -t mini-monitor-dashboard .
 ```
 
-Alternatively you can setup a `babel` filewatcher to transpile this for you within Pycharm.
+### Run
+
+```sh
+docker run -it -p 7001:7001 mini-monitor-dashboard
+```

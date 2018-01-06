@@ -21,11 +21,22 @@ pip install -r requirements_test.txt
 
 ### Javascript development
 
-The dashboard uses `ReactJS` and `Axios` to render the example services json.
-A small shell script has been provided to quickly rebuild/transpile the `app.jsx` file:
+#### Dependencies
+
+To install the javascript production dependencies (i.e. React, Axios) and development dependencies (i.e. webpack):
 
 ```sh
-./rebuildJS.sh
+npm install
+```
+
+#### Transpile
+
+The dashboard uses `ReactJS` and `Axios` to render the example services json.
+To quickly rebuild/transpile the `app.jsx` file execute `webpack` on the command line.
+If you want to use a watcher to detect changes and automatically rebuild you can run the command:
+
+```sh
+webpack -wd
 ```
 
 ## Run
